@@ -171,3 +171,30 @@ exports.deleteEventController = async (req,res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+exports.updateEventStatusController = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const updatedEvent = await events.findByIdAndUpdate(
+            id,
+            { approvalstatus: status },
+            { new: true }
+        );
+        if (!updatedEvent) {
+            return res.status(404).json({
+                message: "Event not found"
+            });
+        }
+        res.status(200).json({
+            message: `Event ${status.toLowerCase()} successfully`,
+            event: updatedEvent
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+};

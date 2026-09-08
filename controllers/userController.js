@@ -177,3 +177,42 @@ exports.getAllUsersController = async (req, res) => {
         });
     }
 };
+
+exports.updateUserStatusController = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const updatedUser = await users.findByIdAndUpdate(
+            id,
+            { status: status },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+        res.status(200).json({
+            message: `User ${status.toLowerCase()} successfully`,
+            user: updatedUser
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+};
+
+//delete User
+exports.deleteUserController = async (req,res) => {
+    try{
+        const { id } = req.params;
+        const deleteUser = await users.findByIdAndDelete(id);
+        res.status(200).json({ message: "User deleted successfully", data: deleteUser });
+    }
+    catch(error){
+        console.log('Error deleting user:', error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}

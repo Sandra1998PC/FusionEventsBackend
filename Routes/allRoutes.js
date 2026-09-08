@@ -1,8 +1,11 @@
 const express = require("express")
-const { registerController, loginController, updateParticipantProfileController, updateOrganizerProfileController, updateAdminProfileController, getAllUsersController } = require("../controllers/userController")
+const { registerController, loginController, updateParticipantProfileController, updateOrganizerProfileController, updateAdminProfileController,
+     getAllUsersController, updateUserStatusController,
+     deleteUserController} = require("../controllers/userController")
 const jwtAuthMiddleware = require("../Middleware/jwtAuthMiddleware")
 const multerMiddleware = require("../Middleware/multerMiddleware")
-const { addEventController, getAllEventssController, viewEventController, paymentController, viewEventRegisterController, removeTicketController, getAllEventsByIdController, updateEventDataController, deleteEventController } = require("../controllers/eventController")
+const { addEventController, getAllEventssController, viewEventController, paymentController, viewEventRegisterController, removeTicketController,
+    getAllEventsByIdController, updateEventDataController, deleteEventController, updateEventStatusController } = require("../controllers/eventController")
 const { addReviewController } = require("../controllers/reviewController")
 const { viewUserNotifController, viewOrganizerNotifController } = require("../controllers/notificationsController")
 
@@ -48,5 +51,11 @@ router.get("/getEvent/:id", jwtAuthMiddleware, getAllEventsByIdController)
 router.put("/organizer/eventupdate/:id", jwtAuthMiddleware, multerMiddleware.single("bannerImage"), updateEventDataController)
 
 router.delete("/delete/:id/event", jwtAuthMiddleware, deleteEventController);
+
+router.put("/updateEventStatus/:id",jwtAuthMiddleware, updateEventStatusController);
+
+router.put("/updateUserStatus/:id",jwtAuthMiddleware,updateUserStatusController);
+
+router.delete("/delete/:id/user", jwtAuthMiddleware, deleteUserController);
 
 module.exports = router

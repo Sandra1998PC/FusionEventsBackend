@@ -37,6 +37,9 @@ const eventSchema = new mongoose.Schema({
     status:{
         type:String,default: "Pending"
     },
+    approvalstatus:{
+        type:String,default: "Pending"
+    },
     organizername:{
         type: String , required : true
     },
@@ -47,7 +50,7 @@ const eventSchema = new mongoose.Schema({
         type: String , required : true
     },
     ticketsSold:{
-       type: Number, default: 0 
+       type: Number, default: 0
     }
 })
 

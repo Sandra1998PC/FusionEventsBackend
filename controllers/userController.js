@@ -51,7 +51,7 @@ exports.loginController = async (req, res) => {
                     id: existingUser._id,
                     role: existingUser.role
                 },
-                process.env.secretKey
+                process.env.secretKey,{expiresIn: "1h"}
             )
             res.status(200).json({ existingUser, token })
         } else {

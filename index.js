@@ -11,7 +11,7 @@ fusionEventsServer.use(express.json())
 fusionEventsServer.use(routes)
 fusionEventsServer.use("/uploads",express.static("./uploads"))
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000;
 
 fusionEventsServer.listen(PORT, () => {
     console.log(`Server Started running in PORT : ${PORT}`)
